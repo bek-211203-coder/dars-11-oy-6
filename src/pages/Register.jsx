@@ -116,7 +116,7 @@ function Register() {
         try {
 
             setLoader(true);
-            const { data } = await avazbek.post('/register', user, {
+            const { data } = await avazbek.post('/Register', user, {
                 headers: {
                     "Content-type": "application/json",
                 },
