@@ -110,7 +110,7 @@ function Register() {
             age: ageRef.current.value,
             email: emailRef.current.value,
             password: passwordRef.current.value,
-            confirmPassword: repasswordRef.current.value,
+            confirmPassword: repasswordRef.current.value
         };
 
         try {
@@ -126,7 +126,7 @@ function Register() {
                 navigate("/Login");
             }
         } catch (err) {
-            console.log(err);
+            console.log(err.response ? err.response.data : err.message);
         } finally {
             setLoader(false)
         }
