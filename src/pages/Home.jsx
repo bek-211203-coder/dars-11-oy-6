@@ -46,7 +46,7 @@ function Home() {
       <NavLeaut />
 
       <div className={`container mx-auto max-w-7xl rounded-[45px] ${isDarkMode ? 'bg-black text-white' : 'bg-blue-100 text-black'}`}>
-        <div className={`p-24 rounded-[45px] ${isDarkMode ? 'bg-gray-800' : 'bg-white'}`}>
+        <div className={`p-24 rounded-[45px] ${isDarkMode ? 'bg-gray-800' : 'bg-blue-100'}`}>
           <div className='flex justify-between items-center'>
             <div className='w-[548px]'>
               <h4 className='text-[14px] mb-5 text-gray-400'>{texts[language].securitySolution}</h4>
