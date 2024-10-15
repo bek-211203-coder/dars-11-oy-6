@@ -2,12 +2,11 @@ import React from 'react';
 import search from '../assets/images/Search.svg';
 import moon from '../assets/images/moon.svg';
 import sun from '../assets/images/sun.svg';
-import { useThemeLanguage } from '../context/ThemeLanguageContext'; // Contextdan hookni import qilamiz
-
+import { useThemeLanguage } from '../context/ThemeLanguageContext';
 function NavLeaut() {
-  const { language, isDarkMode, toggleTheme, handleLanguageChange } = useThemeLanguage(); // Contextdan foydalanish
+  const { language, isDarkMode, toggleTheme, handleLanguageChange } = useThemeLanguage(); 
 
-  // Matnlarni tilga qarab ko'rsatish
+  
   const texts = {
     english: {
       assets: 'Assets',

@@ -2,12 +2,13 @@ import React from 'react';
 import NavLeaut from '../leaut/NavLeaut';
 import ic_Pin from '../assets/images/ic_Pin.svg';
 import iPhone from '../assets/images/iPhone13Pro.png';
-import { useThemeLanguage } from '../context/ThemeLanguageContext'; // Contextdan hookni import qilamiz
+import { useThemeLanguage } from '../context/ThemeLanguageContext'; 
+import Fonimg from '../assets/images/Group22.png'
 
 function Home() {
-  const { language, isDarkMode } = useThemeLanguage(); // Contextdan til va tema holatini olish
+  const { language, isDarkMode } = useThemeLanguage();
 
-  // Matnlarni tilga qarab ko'rsatish
+ 
   const texts = {
     english: {
       securitySolution: 'A SECURITY SOLUTION',
@@ -46,7 +47,7 @@ function Home() {
       <NavLeaut />
 
       <div className={`container mx-auto max-w-7xl rounded-[45px] ${isDarkMode ? 'bg-black text-white' : 'bg-blue-100 text-black'}`}>
-        <div className={`p-24 rounded-[45px] ${isDarkMode ? 'bg-gray-800' : 'bg-blue-100'}`}>
+        <div className={`p-24 rounded-[45px]  ${isDarkMode ? 'bg-gray-800 ' : 'bg-blue-100'}`}>
           <div className='flex justify-between items-center'>
             <div className='w-[548px]'>
               <h4 className='text-[14px] mb-5 text-gray-400'>{texts[language].securitySolution}</h4>

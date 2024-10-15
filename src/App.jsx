@@ -1,5 +1,5 @@
-// import React from 'react';
-import { ThemeLanguageProvider } from './context/ThemeLanguageContext'; // Providerni import qilish
+
+import { ThemeLanguageProvider } from './context/ThemeLanguageContext';
 import Home from './pages/Home';
 
 function App() {
