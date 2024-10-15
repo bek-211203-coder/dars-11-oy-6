@@ -3,7 +3,6 @@ import NavLeaut from '../leaut/NavLeaut';
 import ic_Pin from '../assets/images/ic_Pin.svg';
 import iPhone from '../assets/images/iPhone13Pro.png';
 import { useThemeLanguage } from '../context/ThemeLanguageContext'; 
-import Fonimg from '../assets/images/Group22.png'
 
 function Home() {
   const { language, isDarkMode } = useThemeLanguage();
