@@ -1,121 +1,78 @@
-import { useEffect, useRef, useState } from "react";
-import avazbek from "../../axios";
-import { useNavigate } from "react-router-dom";
+import React from 'react';
+import NavLeaut from '../leaut/NavLeaut';
+import ic_Pin from '../assets/images/ic_Pin.svg';
+import iPhone from '../assets/images/iPhone13Pro.png';
+import { useThemeLanguage } from '../context/ThemeLanguageContext'; // Contextdan hookni import qilamiz
 
 function Home() {
-    const [information, setIformation] = useState([]);
-    const [search, setSearch] = useState('');
-    const [filteredBooks, setFilteredBooks] = useState([]);  
-    const navigate = useNavigate();
-    const minRef = useRef();
-    const maxRef = useRef();
+  const { language, isDarkMode } = useThemeLanguage(); // Contextdan til va tema holatini olish
 
-    const [loder , setLoader] = useState(false)
+  // Matnlarni tilga qarab ko'rsatish
+  const texts = {
+    english: {
+      securitySolution: 'A SECURITY SOLUTION',
+      heading: 'Keep track of your loved ones in real time!',
+      description:
+        'We noticed the high level of insecurity in the world, and we thought of how technology could be used to combat these insecurities.',
+      joinWaitlist: 'Join Our Waitlist!',
+      notify: 'Be the first to get notified when the product is ready!',
+      emailPlaceholder: 'Your email address',
+      buttonText: 'Join List!',
+    },
+    uzbek: {
+      securitySolution: 'XAVFSIZLIK YECHIMI',
+      heading: 'Sevganlaringizni real vaqt rejimida kuzatib boring!',
+      description:
+        "Dunyo bo'ylab xavfsizlik darajasining yuqoriligini sezdik va biz texnologiyadan qanday qilib bu xavfsizlikni oshirishda foydalanish mumkinligini o'ylab ko'rdik.",
+      joinWaitlist: 'Kutish ro\'yxatiga qo\'shiling!',
+      notify: 'Mahsulot tayyor bo\'lganda birinchi bo\'lib xabar oling!',
+      emailPlaceholder: 'Sizning elektron pochta manzilingiz',
+      buttonText: 'Ro\'yxatdan o\'ting!',
+    },
+    russian: {
+      securitySolution: 'РЕШЕНИЕ БЕЗОПАСНОСТИ',
+      heading: 'Следите за своими близкими в реальном времени!',
+      description:
+        'Мы заметили высокий уровень небезопасности в мире, и подумали, как можно использовать технологии для борьбы с этими угрозами.',
+      joinWaitlist: 'Присоединяйтесь к нашему списку ожидания!',
+      notify: 'Будьте первыми, кто получит уведомление, когда продукт будет готов!',
+      emailPlaceholder: 'Ваш адрес электронной почты',
+      buttonText: 'Присоединиться к списку!',
+    },
+  };
 
-    useEffect(() => {
-        setLoader(true);
-        avazbek.get("/books")
-            .then((response) => {
-                const data = response.data;
-                console.log(data);
-                
-                setIformation(data);
-                setFilteredBooks(data);  
-            })
-            .catch((error) => {
-                console.log(error);
-            })
-            .finally(()=>{
-                setLoader(false)
-            })
-    }, []);
+  return (
+    <>
+      <NavLeaut />
 
-    function handelDeteles(id) {
-        navigate(`/books/${id}`);
-    }
-
-    function handelFilter(event) {
-        event.preventDefault();
-        const min = parseInt(minRef.current.value, 10);
-        const max = parseInt(maxRef.current.value, 10);
-
-        const filtered = information.filter((element) => {
-            const pageCount = element.pageCount;
-            return (
-                pageCount >= min &&
-                pageCount <= max
-            );
-        });
-        setFilteredBooks(filtered);
-    }
-
-    const filteredBooksBySearch = filteredBooks.filter((element) => {
-        return element.title.toLowerCase().includes(search.toLowerCase());
-    });
-    {loder && (
-        <div className="flex justify-center items-center">
-            <div className="spinner-border animate-spin inline-block w-8 h-8 border-4 border-t-4 border-white rounded-full" role="status">
-                <span className="sr-only">Loading...</span>
+      <div className={`container mx-auto max-w-7xl rounded-[45px] ${isDarkMode ? 'bg-black text-white' : 'bg-blue-100 text-black'}`}>
+        <div className={`p-24 rounded-[45px] ${isDarkMode ? 'bg-gray-800' : 'bg-white'}`}>
+          <div className='flex justify-between items-center'>
+            <div className='w-[548px]'>
+              <h4 className='text-[14px] mb-5 text-gray-400'>{texts[language].securitySolution}</h4>
+              <h1 className='text-[45px] font-bold mb-6'>{texts[language].heading}</h1>
+              <hr className='mb-[18px]' />
+              <div className='flex gap-8 items-center mb-[71px]'>
+                <img src={ic_Pin} alt='Location icon' />
+                <p className='w-[461px] leading-6 text-[#00085E] text-xl font-semibold'>{texts[language].description}</p>
+              </div>
+              <h2 className='text-[45px] font-bold mb-[13px]'>{texts[language].joinWaitlist}</h2>
+              <p className='text-xl font-[500] mb-[33px]'>{texts[language].notify}</p>
+              <form className='rounded-[40px] p-2 bg-white w-[528px] h-[70px] flex justify-between items-center'>
+                <input className='outline-none bg-transparent px-3' type='text' placeholder={texts[language].emailPlaceholder} />
+                <button className='bg-blue-600 text-white px-5 py-4 rounded-[40px]'>
+                  {texts[language].buttonText}
+                </button>
+              </form>
             </div>
+            <div>
+              <img src={iPhone} alt='iPhone' />
+            </div>
+          </div>
         </div>
-    )}
-    return (
-        <div className='flex flex-wrap flex-col p-8'>
-            <div className="container mx-auto max-w-7xl flex justify-between mb-10 mt-6">
-                <form>
-                    <input
-                        value={search}
-                        onChange={(e) => setSearch(e.target.value)}
-                        type="text"
-                        placeholder="Search..."
-                        className="bg-transparent backdrop-blur-xl border border-white p-3 rounded-2xl text-white outline-none focus:shadow-[0_0_60px_-10px_rgba(255,255,255,0.9)]"
-                    />
-                </form>
-                <form className="flex gap-5">
-                    <input
-                        ref={minRef}
-                        type="number"
-                        placeholder="min"
-                        className="bg-transparent backdrop-blur-xl border border-white p-3 rounded-2xl text-white w-32 outline-none focus:shadow-[0_0_60px_-10px_rgba(255,255,255,0.9)]"
-                    />
-                    <input
-                        ref={maxRef}
-                        type="number"
-                        placeholder="max"
-                        className="bg-transparent backdrop-blur-xl border border-white p-3 rounded-2xl text-white w-32 outline-none focus:shadow-[0_0_60px_-10px_rgba(255,255,255,0.9)]"
-                    />
-                    <button onClick={handelFilter} className="w-1/2 px-4 py-2 rounded-lg bg-[linear-gradient(135deg,_#fdca10,_#fdc70c,_#f3903f,_#ed683c,_#e93e3a)] text-white text-lg  active:scale-95 ">
-                        Filter
-                    </button>
-                </form>
-            </div>
-
-            <div className="container mx-auto max-w-7xl flex justify-center">
-                <div className="grid grid-cols-4 gap-6 cursor-pointer ">
-                    {filteredBooksBySearch.length > 0 && filteredBooksBySearch.map((information) => (
-                        <div
-                            key={information.id}
-                            className="border p-4 mb-4 shadow-md w-72 object-cover rounded-3xl backdrop-blur-lg transition-[1s] hover:shadow-[0_0_60px_-10px_rgba(255,255,255,0.5)] hover:scale-105"
-                            onClick={() => handelDeteles(information.id)}
-                        >
-                            <img className='mx-auto h-56 object-cover' src={information.thumbnailUrl} alt="book img" />
-                            <h2 className="text-xl font-bold mb-2 text-white mt-5">{information.title}</h2>
-                            <div className='flex gap-5 text-white'>
-                                <div className="mb-2 text-gray-400">
-                                    <strong className="text-gray-300">Authors:</strong>
-                                    <ul>
-                                        {information.authors && information.authors.map((author, index) => (
-                                            <li key={index}>{author}</li>
-                                        ))}
-                                    </ul>
-                                </div>
-                            </div>
-                        </div>
-                    ))}
-                </div>
-            </div>
-        </div>
-    );
+      </div>
+    </>
+  );
 }
 
 export default Home;
